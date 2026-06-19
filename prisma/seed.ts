@@ -1,0 +1,51 @@
+import { PrismaClient } from "@prisma/client";
+import * as bcrypt from "bcryptjs";
+
+const prisma = new PrismaClient();
+
+async function main() {
+  // 1. クリーンアップ
+  await prisma.post.deleteMany();
+  await prisma.user.deleteMany();
+
+  const hashedPassword = await bcrypt.hash("password123", 12);
+
+  // ダミー画像URL
+  const dummyImages = ["https://picsum.photos", "https://picsum.photos"];
+
+  // 2. ユーザーとブログ記事の作成（必ず data: { ... } の中にすべて包みます）
+  const user = await prisma.user.create({
+    data: {
+      email: "test@test.com",
+      name: "Test User",
+      password: hashedPassword,
+      posts: {
+        create: [
+          {
+            title: "初めてのブログ投稿",
+            content: "これは最初のブログ投稿です",
+            topImage: dummyImages[0],
+            published: true,
+          },
+          {
+            title: "2番目の投稿",
+            content: "これは２つ目のブログ投稿です",
+            topImage: dummyImages[1],
+            published: true,
+          },
+        ],
+      },
+    },
+  });
+
+  console.log("初期データの作成に成功しました！", { user });
+}
+
+main()
+  .catch((e) => {
+    console.error(e);
+    process.exit(1);
+  })
+  .finally(async () => {
+    await prisma.$disconnect();
+  });
