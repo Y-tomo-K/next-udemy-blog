@@ -11,7 +11,11 @@ async function main() {
   const hashedPassword = await bcrypt.hash("password123", 12);
 
   // ダミー画像URL
-  const dummyImages = ["https://picsum.photos", "https://picsum.photos"];
+
+  const dummyImages = [
+    "https://picsum.photos/seed/post1/600/400",
+    "https://picsum.photos/seed/post2/600/400",
+  ];
 
   // 2. ユーザーとブログ記事の作成（必ず data: { ... } の中にすべて包みます）
   const user = await prisma.user.create({
