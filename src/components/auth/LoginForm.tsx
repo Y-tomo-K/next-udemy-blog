@@ -8,10 +8,7 @@ import { useActionState } from "react";
 import { authenticate } from "@/lib/actions/authenticate"; // ServerAction
 
 export function LoginForm() {
-  const [errorMessage, formAction, isPending] = useActionState(
-    authenticate,
-    undefined,
-  );
+  const [errorMessage, formAction] = useActionState(authenticate, undefined);
   return (
     <Card className="w-full max-w-md mx-auto">
       <CardHeader>
