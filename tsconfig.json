@@ -22,9 +22,15 @@
       "@/*": ["./src/*"]
     }
   },
-  "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],
+  "include": [
+    "next-env.d.ts",
+    "**/*.ts",
+    "**/*.tsx",
+    ".next/types/**/*.ts",
+    "src/global.d.ts"
+  ],
   "exclude": ["node_modules"],
-  // ⚠️ ここから下を新しく追加します（手前の行に「,」カンマを忘れないでください）
+
   "ts-node": {
     "compilerOptions": {
       "module": "CommonJS"
